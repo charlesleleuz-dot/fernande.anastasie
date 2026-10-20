@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fernand d'Anastasie — Maroquinerie artisanale en cuir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;1,6..96,400&family=Jost:wght@300;400;500&display=swap">
+<style>
+:root{--creme:#F5EFE4;--lin:#EBE1D0;--sable:#D9C6A9;--camel:#B38B5D;--camel2:#8A6A43;--marine:#1B2A41;--taupe:#6B6458;
+  --serif:'Bodoni Moda',Georgia,serif;--sans:'Jost',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;background:var(--creme);color-scheme:light}
+body{background:var(--creme);color:var(--marine);font:300 1.0625rem/1.7 var(--sans)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--camel2);outline-offset:4px}
+h2{font:400 clamp(2.2rem,5vw,3.8rem)/1.05 var(--serif);margin-bottom:1.25rem}
+h3{font:400 1.6rem var(--serif);margin-bottom:.25rem}
+section{padding:clamp(4rem,9vw,8rem) clamp(1.25rem,5vw,4.5rem)}
+
+.cuir{background:repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 2px,transparent 2px 5px),linear-gradient(160deg,var(--c1,#C9A57A),var(--c2,#8A6A43))}
+.photo{background-color:#D9C6A9;background-size:cover;background-position:center}
+.f-sac{background-image:url(sac-daim.jpeg)}
+.f-voyage{background-image:url(voyage.jpeg)}
+.f-banane{background-image:url(banane.jpeg)}
+.f-tel{background-image:url(telephone.jpeg)}
+.arch{position:relative;border-radius:999px 999px 8px 8px;aspect-ratio:2/3;transition:transform .6s ease}
+.arch::after{content:"";position:absolute;inset:12px;border:1px dashed rgba(245,239,228,.85);border-radius:999px 999px 4px 4px;pointer-events:none}
+.mono{display:inline-block;background:url(logo.jpeg) center/contain no-repeat;mix-blend-mode:multiply}
+
+/* Logo + 3 barres */
+.logo,.burger{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));z-index:40;background:rgba(245,239,228,.8);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:var(--marine);box-shadow:0 0 0 1px rgba(27,42,65,.1),0 6px 24px rgba(27,42,65,.08)}
+.logo{left:clamp(14px,3vw,32px);display:flex;align-items:center;gap:.7rem;padding:.5rem 1.3rem .5rem 1rem;border-radius:999px;font:italic 400 1.1rem var(--serif);text-decoration:none}
+.logo .mono{width:24px;height:30px}
+.burger{right:clamp(14px,3vw,32px);width:52px;height:52px;border-radius:50%;border:0;display:grid;place-content:center;row-gap:5px;cursor:pointer}
+.burger span{display:block;width:22px;height:1.5px;background:var(--marine);transition:transform .35s,opacity .2s}
+.burger.x span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.burger.x span:nth-child(2){opacity:0}
+.burger.x span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* Menu latéral avec sous-parties */
+.scrim{position:fixed;inset:0;z-index:34;background:rgba(27,42,65,.45);opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+.scrim.open{opacity:1;visibility:visible}
+.menu{position:fixed;top:0;right:0;height:100%;width:min(460px,100%);z-index:35;background:var(--creme);color:var(--marine);padding:6.5rem 3rem 2.5rem;display:flex;flex-direction:column;justify-content:space-between;gap:2rem;overflow-y:auto;transform:translateX(100%);visibility:hidden;transition:transform .6s cubic-bezier(.7,0,.2,1),visibility 0s .6s}
+.menu.open{transform:none;visibility:visible;transition-delay:0s}
+.menu ul{list-style:none;padding:0}
+.principal>li{opacity:0;transform:translateX(30px);transition:opacity .5s,transform .6s}
+.menu.open .principal>li{opacity:1;transform:none;transition-delay:calc(.2s + var(--i)*.08s)}
+.principal>li>a,.sub-toggle{display:flex;justify-content:space-between;align-items:center;width:100%;padding:.3rem 0;font:italic 400 clamp(2.1rem,6vw,2.8rem)/1.25 var(--serif);text-decoration:none;background:none;border:0;color:inherit;cursor:pointer;text-align:left}
+.principal>li>a:hover,.sub-toggle:hover{color:var(--camel2)}
+.pm::before{content:"+";font:300 1.8rem var(--sans)}
+.sub-toggle[aria-expanded="true"] .pm::before{content:"–"}
+.sous-wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s ease}
+li.ouvert .sous-wrap{grid-template-rows:1fr}
+.menu .sous{overflow:hidden;min-height:0;visibility:hidden;padding:.2rem 0 .8rem .3rem;transition:visibility .45s}
+li.ouvert .sous{visibility:visible}
+.sous li a{display:block;padding:.3rem 0;font:400 1.15rem var(--sans);text-decoration:none;color:var(--taupe)}
+.sous li a:hover{color:var(--marine)}
+.menu-pied{color:var(--taupe);font-size:.95rem}
+.menu-pied a{text-decoration:none}
+
+/* ACCUEIL : machine à coudre puis sac à main */
+.hero{--t:0;--s:0;--W:min(84vw,600px,70vh);height:560vh;background:var(--creme);position:relative}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.titre{position:absolute;top:5.2rem;left:0;right:0;text-align:center;z-index:2;padding:0 1rem;opacity:calc(1 - var(--t)*2);transform:translateY(calc(var(--t)*-6vh))}
+.titre-entree{animation:entree 1.2s ease-out both}
+@keyframes entree{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+h1{font:italic 400 clamp(2.4rem,6vw,4.8rem)/1 var(--serif);letter-spacing:-.02em}
+.titre p{color:var(--taupe);margin-top:.5rem}
+.machine{position:absolute;left:50%;top:50%;width:var(--W);height:auto;margin-left:calc(var(--W)*-.5);overflow:visible;z-index:1;pointer-events:none;transform:translateY(calc(var(--W)*-.373 - var(--t)*8vh)) scale(calc(1 - var(--t)*.12));opacity:calc(1 - var(--t)*1.8)}
+.legende{position:absolute;bottom:8vh;left:0;right:0;text-align:center;font:italic 400 1.2rem var(--serif);color:var(--taupe);opacity:calc(1 - var(--t)*3)}
+.sac-arch{position:absolute;left:50%;top:50%;width:min(62vw,400px,50vh);z-index:3;--c1:#B38B5D;--c2:#9C7648;transition:none;
+  transform:translate(-50%,-50%) translate(calc(var(--s)*var(--dx,15vw)),calc(var(--s)*var(--dy,0px))) scale(calc(1 - var(--s)*var(--ds,0)));
+  opacity:calc(var(--t)*15);
+  clip-path:inset(calc((1 - var(--t))*49.5%) 0 calc((1 - var(--t))*49.5%) 0 round max(0px,calc((var(--t) - .3)*1430px)) max(0px,calc((var(--t) - .3)*1430px)) 8px 8px)}
+.sac-arch .ph{position:absolute;inset:0;opacity:min(1,max(0,calc((var(--t) - .6)*3)))}
+.nouv-txt{position:absolute;left:clamp(1.25rem,7vw,6rem);top:50%;width:min(26rem,38vw);z-index:4;pointer-events:none;
+  opacity:min(1,max(0,calc(var(--s)*1.8 - .4)));transform:translateY(calc(-50% + (1 - var(--s))*30px))}
+.nouv-txt h2{font-size:clamp(1.9rem,3.4vw,2.8rem);margin-bottom:1.5rem}
+.nouv-txt h3{font-size:clamp(2rem,4vw,3.2rem);line-height:1.05;margin:.7rem 0 .8rem}
+.nouv-txt p{color:var(--taupe)}
+.nv{display:inline-block;padding:.1rem .85rem;border:1px solid var(--camel);border-radius:999px;font-size:.85rem}
+.lien{display:inline-block;margin-top:1.2rem;text-decoration:underline;text-underline-offset:6px;text-decoration-color:var(--camel)}
+
+/* Autres nouveautés */
+.nouv{height:380vh;padding:0;position:relative;background:var(--lin)}
+.stage2{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;overflow:hidden;padding:6.5rem clamp(1.25rem,5vw,4.5rem) 2rem}
+.slides{position:relative;flex:1;min-height:0}
+.sl{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,6vw,5rem);align-items:center;opacity:0;transform:scale(.97);transition:opacity .7s,transform .9s;pointer-events:none}
+.sl.on{opacity:1;transform:none;pointer-events:auto}
+.sl .arch{height:min(66vh,580px);margin-left:auto;transform:translateY(40px) scale(.92);transition:transform 1s ease}
+.sl.on .arch{transform:none}
+.sl h3{font-size:clamp(2.2rem,5vw,4rem);line-height:1.05;margin:.8rem 0 1rem}
+.sl p{max-width:26rem;color:var(--taupe)}
+.pts{list-style:none;padding:0;display:flex;gap:.6rem;justify-content:center}
+.pts li{width:36px;height:3px;background:rgba(27,42,65,.2);transition:.4s}
+.pts li.on{width:64px;background:var(--marine)}
+
+/* Collections (accueil) */
+.entete{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap;margin-bottom:3rem}
+.entete p{color:var(--taupe);max-width:26rem}
+.rail-nav{display:flex;gap:.6rem}
+.rail-btn{width:48px;height:48px;border-radius:50%;border:1px solid var(--marine);background:none;color:var(--marine);font-size:1.4rem;cursor:pointer;transition:background .2s,color .2s}
+.rail-btn:hover{background:var(--marine);color:var(--creme)}
+.rail{display:flex;gap:1.5rem;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(-1*clamp(1.25rem,5vw,4.5rem));padding:0 clamp(1.25rem,5vw,4.5rem) 1rem;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.item{flex:0 0 min(78vw,300px);scroll-snap-align:start;text-decoration:none}
+.item .arch{margin-bottom:1.1rem}
+.item:hover .arch{transform:scale(1.03)}
+.item p{color:var(--taupe);font-size:1rem}
+
+/* Atelier */
+.atelier{background:var(--marine);color:var(--creme);display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(2rem,6vw,6rem);align-items:center}
+.citation{font:italic 400 clamp(1.7rem,3.6vw,2.9rem)/1.25 var(--serif)}
+.mot{opacity:.28;transition:opacity .3s}
+.mot.on{opacity:1}
+.texte{margin-top:1.5rem;max-width:36rem;color:#CBD2DD}
+.faits{list-style:none;padding:0}
+.faits li{padding:1.5rem 0;border-top:1px solid rgba(217,198,169,.45)}
+.faits li:last-child{border-bottom:1px solid rgba(217,198,169,.45)}
+.faits strong{display:block;font:400 2.3rem/1.1 var(--serif);color:var(--sable)}
+
+/* Sur-mesure, contact */
+.mesure{background:var(--sable)}
+.mesure p{max-width:32rem;margin-bottom:2rem}
+.btn{display:inline-block;padding:.95rem 2rem;background:var(--marine);color:var(--creme);text-decoration:none;font-weight:500;letter-spacing:.04em;border-radius:999px;transition:background .25s}
+.btn:hover{background:#2C4263}
+.contact{background:var(--marine);color:var(--creme);padding:4.5rem clamp(1.25rem,5vw,4.5rem) calc(2.5rem + env(safe-area-inset-bottom,0px))}
+.contact .mono{width:52px;height:64px;filter:invert(1);mix-blend-mode:screen;margin-bottom:1.5rem}
+.contact p{margin-bottom:.3rem}
+.contact a:hover{color:var(--sable)}
+.contact small{display:block;margin-top:3.5rem;color:#A9B3C2}
+
+.rv{opacity:0;transform:translateY(32px);transition:opacity .9s ease,transform .9s ease}
+.rv.in{opacity:1;transform:none}
+
+/* PAGES : catégories et fiches produits */
+.page{padding:8rem clamp(1.25rem,5vw,4.5rem) 5rem;min-height:100vh;animation:entree .7s ease both}
+.retour{display:inline-block;color:var(--taupe);text-decoration:none;font-size:.95rem}
+.retour:hover{color:var(--marine)}
+.page h1{font:italic 400 clamp(2.6rem,6vw,4.6rem)/1 var(--serif);margin:.8rem 0 1rem;outline:none}
+.page .intro{color:var(--taupe);max-width:34rem;margin-bottom:3rem}
+.cartes{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:2.5rem 1.75rem}
+.carte{display:block;text-decoration:none}
+.carte .cadre{aspect-ratio:4/5;overflow:hidden;border-radius:6px;background:var(--lin);margin-bottom:1rem}
+.carte img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+.carte:hover img{transform:scale(1.04)}
+.nomp{font:400 1.45rem var(--serif);margin:0}
+.carte .col{color:var(--taupe);font-size:.95rem}
+.carte .prix{margin-top:.2rem}
+.fiche{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(2rem,5vw,5rem);align-items:start;margin-top:1rem}
+.grande{border-radius:8px;overflow:hidden;background:var(--lin)}
+.grande img{display:block;width:100%;height:auto}
+.infos{position:sticky;top:6rem}
+.infos h1{font-size:clamp(2.1rem,4vw,3.2rem);margin:.8rem 0 .4rem}
+.infos .coul{color:var(--taupe)}
+.prix-gros{font:400 1.9rem var(--serif);margin:.8rem 0 1.25rem}
+.infos .desc{color:var(--taupe)}
+.det{list-style:none;padding:0;margin:1.5rem 0;border-top:1px solid rgba(27,42,65,.15)}
+.det li{padding:.7rem 0;border-bottom:1px solid rgba(27,42,65,.15);font-size:.98rem}
+.autres{display:flex;gap:.6rem;flex-wrap:wrap;margin:1.5rem 0}
+.autres a{display:block;width:64px;height:80px;border-radius:4px;overflow:hidden;outline:2px solid transparent;outline-offset:3px}
+.autres a[aria-current="true"]{outline-color:var(--marine)}
+.autres img{display:block;width:100%;height:100%;object-fit:cover}
+.note{margin-top:1.25rem;color:var(--taupe);font-size:.92rem}
+
+@media (max-width:820px){
+  .sac-arch{--dx:0px;--dy:-14vh;--ds:.18}
+  .nouv-txt{left:0;right:0;top:auto;bottom:4vh;width:auto;text-align:center;padding:0 1.5rem;transform:translateY(calc((1 - var(--s))*30px))}
+  .nouv-txt h2{font-size:1.8rem;margin-bottom:.8rem}
+  .nouv-txt h3{font-size:2rem;margin:.5rem 0}
+  .atelier{grid-template-columns:1fr}
+  .sl{grid-template-columns:1fr;align-content:center;gap:1.25rem}
+  .sl .arch{order:-1;height:min(40vh,330px);margin:0 auto}
+  .sl>div{text-align:center}.sl p{margin:0 auto}
+  .menu{padding:6rem 2rem 2rem}
+  .fiche{grid-template-columns:1fr}
+  .infos{position:static}
+}
+
+/* Mouvement réduit */
+.calme .rv{opacity:1;transform:none;transition:none}
+.calme .hero,.calme .nouv{height:auto}
+.calme .stage{position:relative;height:auto;min-height:100vh;display:flex;flex-direction:column;align-items:center;gap:2rem;padding:6.5rem 1.25rem 4rem}
+.calme .machine,.calme .legende{display:none}
+.calme .titre,.calme .sac-arch,.calme .nouv-txt{position:relative;left:auto;right:auto;top:auto;bottom:auto;transform:none;opacity:1;clip-path:none;text-align:center}
+.calme .titre-entree,.calme .page{animation:none}
+.calme .sac-arch{width:min(62vw,400px)}
+.calme .sac-arch .ph{opacity:1}
+.calme .nouv-txt{width:min(26rem,100%)}
+.calme .stage2{position:relative;height:auto;min-height:100vh}
+.calme .slides{display:grid;gap:3rem}
+.calme .sl{position:relative;opacity:1;transform:none;transition:none}
+.calme .sl .arch{transform:none;transition:none}
+.calme .mot{opacity:1}
+.calme .menu,.calme .principal>li,.calme .sous-wrap{transition:none}
+</style>
+</head>
+<body>
+
+<a class="logo" href="#/"><span class="mono" role="img" aria-label="Monogramme FA"></span>Fernand d'Anastasie</a>
+<button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+<div class="scrim" id="scrim"></div>
+<nav class="menu" id="menu" aria-label="Menu principal" inert>
+  <ul class="principal">
+    <li style="--i:0" id="li-coll">
+      <button class="sub-toggle" id="stog" aria-expanded="false" aria-controls="sous">Collections<span class="pm" aria-hidden="true"></span></button>
+      <div class="sous-wrap"><ul class="sous" id="sous"></ul></div>
+    </li>
+    <li style="--i:1"><a href="#/atelier">L'atelier</a></li>
+    <li style="--i:2"><a href="#/sur-mesure">Sur-mesure</a></li>
+    <li style="--i:3"><a href="#/contact">Contact</a></li>
+  </ul>
+  <p class="menu-pied"><a href="mailto:fernande.anastasie@gmail.com">fernande.anastasie@gmail.com</a><br><a href="https://www.instagram.com/fernande_anastasie/" target="_blank" rel="noopener">@fernande_anastasie</a></p>
+</nav>
+
+<!-- ============ ACCUEIL ============ -->
+<main id="home">
+  <header class="hero" id="accueil">
+    <div class="stage">
+      <div class="titre"><div class="titre-entree">
+        <h1>Fernand d'Anastasie</h1>
+        <p>Maroquinerie en cuir, cousue à la main</p>
+      </div></div>
+
+      <svg class="machine" viewBox="-50 0 700 360" role="img" aria-label="Machine à coudre en train de coudre une bande de cuir">
+        <defs><clipPath id="apres"><rect x="150" y="236" width="1500" height="40"/></clipPath></defs>
+        <rect x="30" y="270" width="540" height="30" rx="15" fill="#1B2A41"/>
+        <rect x="-1400" y="252" width="3200" height="18" fill="#B38B5D"/>
+        <rect x="-1400" y="252" width="3200" height="3" fill="#C9A57A"/>
+        <g id="grain"><line x1="-1400" y1="266" x2="1800" y2="266" stroke="#9C7648" stroke-width="2" stroke-dasharray="1.5 11"/></g>
+        <g clip-path="url(#apres)"><g id="coutures"><line x1="-900" y1="261" x2="150" y2="261" stroke="#F5EFE4" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="8 6"/></g></g>
+        <path d="M110 80H440Q500 80 500 140V270H400V160H190V215H110Z" fill="#1B2A41" stroke="#1B2A41" stroke-width="8" stroke-linejoin="round"/>
+        <path d="M205 120H385" stroke="#B38B5D" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="150" cy="118" r="7" fill="#B38B5D"/>
+        <rect x="276" y="46" width="38" height="5" rx="2" fill="#1B2A41"/>
+        <rect x="280" y="51" width="30" height="24" fill="#B38B5D"/>
+        <rect x="276" y="75" width="38" height="5" rx="2" fill="#1B2A41"/>
+        <path d="M295 46C295 14 150 6 150 60V214" fill="none" stroke="#B38B5D" stroke-width="1.6"/>
+        <g id="roue"><circle cx="500" cy="200" r="34" fill="#EBE1D0" stroke="#8A6A43" stroke-width="4"/><path d="M500 200V170M500 200L526 215M500 200L474 215" stroke="#8A6A43" stroke-width="3" stroke-linecap="round"/><circle cx="500" cy="172" r="4" fill="#1B2A41"/></g>
+        <path d="M132 246H168L172 252H128Z" fill="#8A6A43"/>
+        <g id="aig"><rect x="147" y="212" width="6" height="28" rx="2" fill="#8A6A43"/><line x1="150" y1="240" x2="150" y2="268" stroke="#8C93A1" stroke-width="2.4" stroke-linecap="round"/></g>
+      </svg>
+      <p class="legende">Une couture après l'autre. Faites défiler.</p>
+
+      <div class="arch sac-arch cuir" role="img" aria-label="Sac cabas en daim vert foncé, anses cognac"><div class="ph photo f-sac"></div></div>
+      <div class="nouv-txt">
+        <h2>Les nouveautés</h2>
+        <span class="nv">Nouveau</span>
+        <h3>Le sac à main</h3>
+        <p>Des lignes épurées, un cuir qui se patine, des coutures laissées visibles.</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="nouv" id="nouveautes" aria-label="Autres nouveautés">
+    <div class="stage2">
+      <div class="slides">
+        <article class="sl on">
+          <div><span class="nv">Nouveau</span><h3>Le sac de voyage</h3><p>Une nouvelle silhouette pour les départs : cuir épais, anses renforcées, coutures main.</p><a class="lien" href="#/produit/sac-voyage-marine">Découvrir la pièce</a></div>
+          <div class="arch photo f-voyage" role="img" aria-label="Sac de voyage en cuir bleu marine, anses cognac"></div>
+        </article>
+        <article class="sl">
+          <div><span class="nv">Nouveau</span><h3>La banane</h3><p>Compacte et près du corps, pour garder l'essentiel à portée de main.</p><a class="lien" href="#/produit/banane-marine">Découvrir la pièce</a></div>
+          <div class="arch photo f-banane" role="img" aria-label="Banane en cuir bleu marine avec bandoulière rayée"></div>
+        </article>
+        <article class="sl">
+          <div><span class="nv">Nouveau</span><h3>Le porte-téléphone</h3><p>Un cuir camel, des clous dorés et un cordon : le téléphone se porte en bandoulière.</p><a class="lien" href="#/produit/porte-telephone-camel">Découvrir la pièce</a></div>
+          <div class="arch photo f-tel" role="img" aria-label="Porte-téléphone en cuir camel à clous dorés"></div>
+        </article>
+      </div>
+      <ul class="pts" aria-hidden="true"><li class="on"></li><li></li><li></li></ul>
+    </div>
+  </section>
+
+  <section id="collections">
+    <div class="entete rv">
+      <div><h2>Collections</h2><p>Huit familles de pièces, toutes faites main dans l'atelier.</p></div>
+      <div class="rail-nav">
+        <button class="rail-btn" data-d="-1" aria-label="Précédent">‹</button>
+        <button class="rail-btn" data-d="1" aria-label="Suivant">›</button>
+      </div>
+    </div>
+    <div class="rail rv" id="rail" tabindex="0" aria-label="Collections, à faire défiler horizontalement"></div>
+  </section>
+
+  <section class="atelier" id="atelier">
+    <div>
+      <h2 class="rv">L'atelier</h2>
+      <p class="citation">Façonnée par plus de quinze ans d'exigence au service du cuir, je donne vie à la matière.</p>
+      <p class="texte rv">Je prends le temps d'apprivoiser chaque peau, guidée par l'amour du travail bien fait. La sélection, la coupe, le fil qui traverse le cuir et le lissage des bords forment ma chorégraphie quotidienne.</p>
+      <p class="texte rv">Mes créations sont des promesses : des compagnons de route solides, d'une beauté brute, façonnés par mes mains pour être choyés, réparés et aimés toute une vie.</p>
+    </div>
+    <ul class="faits rv">
+      <li><strong><span data-n="15">15</span> ans et plus</strong>de couture</li>
+      <li><strong>Formation</strong>en maroquinerie</li>
+      <li><strong>Fait main</strong>dans un petit atelier</li>
+    </ul>
+  </section>
+
+  <section class="mesure" id="sur-mesure">
+    <h2 class="rv">Sur-mesure</h2>
+    <p class="rv">Une couleur, des initiales, une dimension précise : décris la pièce que tu imagines et je te réponds avec un devis.</p>
+    <a class="btn rv" href="mailto:fernande.anastasie@gmail.com?subject=Demande%20sur-mesure">Demander un devis</a>
+  </section>
+</main>
+
+<!-- Pages catégories / produits (remplies par le script) -->
+<main id="pages" tabindex="-1" hidden></main>
+
+<footer class="contact" id="contact">
+  <span class="mono" role="img" aria-label="Monogramme FA"></span>
+  <h2>Contact</h2>
+  <p><a href="mailto:fernande.anastasie@gmail.com">fernande.anastasie@gmail.com</a></p>
+  <p><a href="https://www.instagram.com/fernande_anastasie/" target="_blank" rel="noopener">Instagram @fernande_anastasie</a></p>
+  <small>© Fernand d'Anastasie. Mentions légales, CGV et confidentialité à ajouter.</small>
+</footer>
+
+<script>
+/* ===================== CATALOGUE =====================
+   Pour changer un prix, un nom ou une description : modifie le texte ci-dessous. */
+const CATS=[
+ {s:'bananes',n:'Bananes',t:"Compactes et près du corps, à porter à la taille ou en bandoulière.",c:'banane.jpeg'},
+ {s:'porte-telephones',n:'Porte-téléphones',t:"Le cuir qui protège le téléphone et vieillit bien, porté en bandoulière.",c:'telephone.jpeg'},
+ {s:'trousses-de-toilette',n:'Trousses de toilette',t:"Pour la salle de bain comme pour le week-end, en cuir grainé.",c:'trousse-violet.jpeg'},
+ {s:'sacs-a-main',n:'Sacs à main',t:"Des lignes simples, des coutures visibles, en cuir ou en daim.",c:'sac-cuir.jpeg'},
+ {s:'sacs-de-voyage',n:'Sacs de voyage',t:"Grands volumes, cuir épais, anses renforcées.",c:'voyage.jpeg'},
+ {s:'porte-cartes',n:'Porte-cartes',t:"Fins, soignés, personnalisables avec vos initiales.",c:'carte-rouge.jpeg'},
+ {s:'porte-cles',n:'Porte-clés',t:"La plus petite pièce de l'atelier.",c:'cle.jpeg'},
+ {s:'etuis-de-lunettes',n:'Étuis de lunettes',t:"Pour protéger vos lunettes, en plusieurs coloris.",c:'etui-orange.jpeg'}
+];
+const PRODUITS=[
+ {id:'banane-marine',cat:'bananes',nom:'La banane',col:'Bleu marine',prix:210,img:'banane.jpeg',alt:'Banane en cuir bleu marine avec bandoulière rayée',
+  desc:"Une banane en cuir lisse bleu marine, avec fermeture zippée dorée. Sa bandoulière rayée se porte en croisé ou à la taille, pour garder l'essentiel à portée de main.",
+  det:['Cuir bleu marine','Fermeture zippée','Bandoulière rayée avec mousquetons dorés']},
+ {id:'porte-telephone-camel',cat:'porte-telephones',nom:'Le porte-téléphone',col:'Camel',prix:50,img:'telephone.jpeg',alt:'Porte-téléphone en cuir camel à clous dorés avec cordon',
+  desc:"Un étui en cuir camel, orné de clous dorés et de coutures apparentes sur les côtés. Le cordon en cuir permet de le porter en bandoulière.",
+  det:['Cuir camel','Clous dorés','Cordon en cuir']},
+ {id:'trousse-bleu-jaune',cat:'trousses-de-toilette',nom:'La trousse de toilette',col:'Bleu marine et jaune',prix:240,img:'trousse-jaune.jpeg',alt:'Trousse de toilette en cuir bleu marine avec anses jaunes',
+  desc:"Une trousse en cuir grainé bleu marine, soulignée de jaune citron sur les anses et la fermeture. L'intérieur clair est doublé et se ferme par un zip doré.",
+  det:['Cuir grainé bleu marine','Anses et finitions jaune citron','Intérieur doublé','Fermeture zippée']},
+ {id:'trousse-bleu-orange',cat:'trousses-de-toilette',nom:'La trousse de toilette',col:'Bleu marine et orange',prix:240,img:'trousse-orange.jpeg',alt:'Trousse de toilette en cuir bleu marine avec anses orange',
+  desc:"La même trousse en cuir grainé bleu marine, avec des anses et un liseré orange vif. Un mousqueton permet de l'accrocher ou de la porter à la main.",
+  det:['Cuir grainé bleu marine','Anses et finitions orange','Intérieur doublé','Fermeture zippée']},
+ {id:'trousse-vert-violet',cat:'trousses-de-toilette',nom:'La trousse de toilette',col:'Vert olive et violet',prix:240,img:'trousse-violet.jpeg',alt:'Trousse de toilette en cuir vert olive avec anses violettes',
+  desc:"Une trousse au format souple, en cuir grainé vert olive, avec anses et zip violets. Un mousqueton permet de l'accrocher ou de la porter à la main.",
+  det:['Cuir grainé vert olive','Finitions violettes','Mousqueton argenté','Fermeture zippée']},
+ {id:'sac-main-marron',cat:'sacs-a-main',nom:'Le sac à main en cuir',col:'Marron',prix:300,img:'sac-cuir.jpeg',alt:'Sac à main en cuir marron avec anses tressées et pompons',
+  desc:"Un sac en cuir lisse marron, avec empiècement en daim. Ses anses tressées et ses deux pompons en cuir donnent du caractère à une silhouette douce et souple.",
+  det:['Cuir lisse marron','Empiècement en daim','Anses en cuir tressé','Fermeture par cordons et pompons en cuir']},
+ {id:'sac-main-daim-vert',cat:'sacs-a-main',nom:'Le sac à main en daim',col:'Vert foncé',prix:180,img:'sac-daim.jpeg',alt:'Cabas en daim vert foncé avec anses en cuir cognac',
+  desc:"Un grand cabas en daim vert foncé, avec anses en cuir cognac. Sa breloque en cœur doré se détache sur la matière veloutée.",
+  det:['Daim vert foncé','Anses en cuir cognac','Breloque cœur et mousqueton','Grand volume']},
+ {id:'sac-voyage-marine',cat:'sacs-de-voyage',nom:'Le sac de voyage',col:'Bleu marine et cognac',prix:470,img:'voyage.jpeg',alt:'Sac de voyage en cuir bleu marine avec anses cognac',
+  desc:"Un sac de voyage en cuir bleu marine, aux anses et finitions cognac. Son grand volume et ses anses renforcées sont pensés pour les départs de plusieurs jours.",
+  det:['Cuir bleu marine','Anses et pattes cognac','Grand volume','Fermeture zippée']},
+ {id:'porte-cartes-marine-creme',cat:'porte-cartes',nom:'Le porte-cartes',col:'Bleu marine et crème',prix:50,img:'carte-marine.jpeg',alt:'Porte-cartes en cuir bleu marine et crème avec initiales dorées',
+  desc:"Un porte-cartes fin en cuir lisse bleu marine et crème, aux coutures apparentes. Il peut être personnalisé avec vos initiales dorées.",
+  det:['Cuir lisse','Coutures apparentes','Initiales dorées en option']},
+ {id:'porte-cartes-rouge-marron',cat:'porte-cartes',nom:'Le porte-cartes',col:'Rouge et marron grainé',prix:50,img:'carte-rouge.jpeg',alt:'Porte-cartes en cuir rouge et marron grainé avec initiales dorées',
+  desc:"Un porte-cartes fin en cuir lisse rouge, associé à un cuir marron grainé. Il peut être personnalisé avec vos initiales dorées.",
+  det:['Cuir lisse et cuir grainé','Coutures apparentes','Initiales dorées en option']},
+ {id:'porte-cles-leopard',cat:'porte-cles',nom:'Le porte-clés',col:'Léopard et cuir',prix:25,img:'cle.jpeg',alt:'Porte-clés en cuir au motif léopard avec pompons et dragonne',
+  desc:"Un porte-clés en cuir au motif léopard, orné d'un petit personnage en cuir. Dragonne, cordage noué et pompons complètent le tout.",
+  det:['Cuir et motif léopard','Dragonne en cuir','Mousqueton et anneaux dorés']},
+ {id:'etui-orange',cat:'etuis-de-lunettes',nom:"L'étui de lunettes",col:'Orange texturé',prix:70,img:'etui-orange.jpeg',alt:'Étui de lunettes en cuir orange effet croco avec pompon en tissu',
+  desc:"Un étui en cuir orange à l'effet croco texturé, fermé par un zip. Un pompon en tissu fleuri vient l'égayer.",
+  det:['Cuir effet croco','Fermeture zippée','Pompon en tissu']},
+ {id:'etui-noir',cat:'etuis-de-lunettes',nom:"L'étui de lunettes",col:'Noir texturé',prix:70,img:'etui-noir.jpeg',alt:'Étui de lunettes en cuir noir grainé avec pompon vert',
+  desc:"Un étui en cuir noir grainé, fermé par un zip vert, avec son pompon en tissu vert d'eau.",
+  det:['Cuir noir grainé','Fermeture zippée verte','Pompon en tissu']},
+ {id:'etui-dore',cat:'etuis-de-lunettes',nom:"L'étui de lunettes",col:'Doré texturé',prix:70,img:'etui-dore.jpeg',alt:'Étui de lunettes en cuir doré avec pompon bleu ciel',
+  desc:"Un étui en cuir doré à l'aspect froissé, avec zip et pompon en fil bleu ciel.",
+  det:['Cuir doré texturé','Fermeture zippée','Pompon en fil']},
+ {id:'etui-leopard',cat:'etuis-de-lunettes',nom:"L'étui de lunettes",col:'Léopard néon',prix:70,img:'etui-leopard.jpeg',alt:'Étui de lunettes au motif léopard jaune fluo avec pompon gris',
+  desc:"Un étui au motif léopard jaune fluo, fermé par un zip et prolongé d'un pompon gris.",
+  det:['Motif léopard néon','Fermeture zippée','Pompon gris']},
+ {id:'etui-corail',cat:'etuis-de-lunettes',nom:"L'étui de lunettes",col:'Rouge corail texturé',prix:70,img:'etui-corail.jpeg',alt:'Étui de lunettes en cuir rouge corail effet croco avec pompon en tissu',
+  desc:"Un étui en cuir rouge corail à l'effet croco, avec un pompon en tissu bleu et violet.",
+  det:['Cuir effet croco','Fermeture zippée','Pompon en tissu']}
+];
+
+/* ===================== OUTILS ===================== */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const eur=n=>n+'\u00a0€';
+const calme=matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(calme)document.documentElement.classList.add('calme');
+
+$('#sous').innerHTML='<li><a href="#/collections">Toutes les collections</a></li>'+CATS.map(c=>`<li><a href="#/collection/${c.s}">${c.n}</a></li>`).join('');
+$('#rail').innerHTML=CATS.map(c=>`<a class="item" href="#/collection/${c.s}"><div class="arch photo" role="img" aria-label="${c.n}" style="background-image:url(${c.c})"></div><h3>${c.n}</h3><p>${c.t}</p></a>`).join('');
+
+const btn=$('#burger'),menu=$('#menu'),scrim=$('#scrim'),stog=$('#stog'),licoll=$('#li-coll');
+function ouvrir(o){
+  btn.classList.toggle('x',o);btn.setAttribute('aria-expanded',o);
+  btn.setAttribute('aria-label',o?'Fermer le menu':'Ouvrir le menu');
+  menu.classList.toggle('open',o);scrim.classList.toggle('open',o);menu.inert=!o;
+  document.body.style.overflow=o?'hidden':'';
+  if(o)stog.focus();
+}
+btn.onclick=()=>ouvrir(!menu.classList.contains('open'));
+scrim.onclick=()=>ouvrir(false);
+stog.onclick=()=>{const o=!licoll.classList.contains('ouvert');licoll.classList.toggle('ouvert',o);stog.setAttribute('aria-expanded',o)};
+$$('#menu a').forEach(a=>a.addEventListener('click',()=>ouvrir(false)));
+addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.classList.contains('open')){ouvrir(false);btn.focus()}});
+$$('.rail-btn').forEach(b=>b.onclick=()=>$('#rail').scrollBy({left:b.dataset.d*320,behavior:calme?'auto':'smooth'}));
+
+/* ===================== PAGES ===================== */
+const home=$('#home'),pages=$('#pages');
+let vue='home';
+
+function vueCat(s){
+  const c=CATS.find(x=>x.s===s),l=PRODUITS.filter(p=>p.cat===s);
+  pages.innerHTML=`<div class="page"><a class="retour" href="#/collections">← Collections</a>
+  <h1 tabindex="-1">${c.n}</h1><p class="intro">${c.t}</p>
+  <div class="cartes">${l.map(p=>`<a class="carte" href="#/produit/${p.id}"><div class="cadre"><img src="${p.img}" alt="${p.alt}" loading="lazy"></div><h2 class="nomp">${p.nom}</h2><p class="col">${p.col}</p><p class="prix">${eur(p.prix)}</p></a>`).join('')}</div></div>`;
+  document.title=c.n+" — Fernand d'Anastasie";
+}
+function vueProd(p){
+  const c=CATS.find(x=>x.s===p.cat),freres=PRODUITS.filter(x=>x.cat===p.cat);
+  const sujet=encodeURIComponent(`Demande : ${p.nom} (${p.col})`);
+  pages.innerHTML=`<div class="page"><a class="retour" href="#/collection/${c.s}">← ${c.n}</a>
+  <div class="fiche">
+    <div class="grande"><img src="${p.img}" alt="${p.alt}"></div>
+    <div class="infos">
+      <h1 tabindex="-1">${p.nom}</h1>
+      <p class="coul">${p.col}</p>
+      <p class="prix-gros">${eur(p.prix)}</p>
+      <p class="desc">${p.desc}</p>
+      <ul class="det">${p.det.concat(['Fait main dans un petit atelier']).map(d=>`<li>${d}</li>`).join('')}</ul>
+      ${freres.length>1?`<div class="autres" aria-label="Autres modèles et coloris">${freres.map(f=>`<a href="#/produit/${f.id}" aria-label="${f.col}" ${f.id===p.id?'aria-current="true"':''}><img src="${f.img}" alt=""></a>`).join('')}</div>`:''}
+      <a class="btn" href="mailto:fernande.anastasie@gmail.com?subject=${sujet}">Demander cette pièce</a>
+      <p class="note">Chaque pièce est faite à la main : écris-moi pour connaître la disponibilité.</p>
+    </div></div></div>`;
+  document.title=p.nom+' '+p.col.toLowerCase()+" — Fernand d'Anastasie";
+}
+function montrer(v){
+  const avant=vue;vue=v;
+  home.hidden=v!=='home';pages.hidden=v==='home';
+  if(v==='pages'||avant!==v)scrollTo({top:0,behavior:'instant'});
+  if(v==='pages'){const h=pages.querySelector('h1');h&&h.focus({preventScroll:true})}
+}
+function route(){
+  const [a,b]=location.hash.replace(/^#\/?/,'').split('/');
+  const c=CATS.find(x=>x.s===b),p=PRODUITS.find(x=>x.id===b);
+  if(a==='collection'&&c){vueCat(b);montrer('pages')}
+  else if(a==='produit'&&p){vueProd(p);montrer('pages')}
+  else{
+    document.title="Fernand d'Anastasie — Maroquinerie artisanale en cuir";
+    montrer('home');maj();
+    const ids=['collections','atelier','sur-mesure','contact'];
+    if(ids.includes(a))document.getElementById(a).scrollIntoView();
+    else if(!a)scrollTo({top:0,behavior:'smooth'});
+  }
+}
+addEventListener('hashchange',route);
+
+/* ===================== ANIMATIONS DE L'ACCUEIL ===================== */
+const cit=$('.citation');
+cit.innerHTML=cit.textContent.trim().split(/\s+/).map(m=>`<span class="mot">${m}</span>`).join(' ');
+const mots=$$('.mot');
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+$$('.rv').forEach(el=>io.observe(el));
+
+const cpt=$('[data-n]');
+if(!calme){
+  const co=new IntersectionObserver(es=>{if(es[0].isIntersecting){
+    co.disconnect();const fin=+cpt.dataset.n,t0=performance.now();
+    (function f(t){const k=clamp((t-t0)/1200,0,1);cpt.textContent=Math.round(fin*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)})(t0);
+  }},{threshold:.6});
+  co.observe(cpt);
+}
+
+const hero=$('.hero'),nouv=$('.nouv'),slides=$$('.sl'),pts=$$('.pts li');
+const cout=$('#coutures'),aig=$('#aig'),roue=$('#roue'),grain=$('#grain');
+function maj(){
+  if(vue!=='home'||calme)return;
+  const vh=innerHeight;
+  const hr=hero.getBoundingClientRect(),p=clamp(-hr.top/(hero.offsetHeight-vh),0,1);
+  const X=clamp((p-.08)/.47,0,1)*364;
+  hero.style.setProperty('--t',clamp((p-.55)/.2,0,1));
+  hero.style.setProperty('--s',clamp((p-.75)/.2,0,1));
+  cout.setAttribute('transform',`translate(${X} 0)`);
+  grain.setAttribute('transform',`translate(${X} 0)`);
+  const ph=(((10-X)%14)+14)%14/14;
+  aig.setAttribute('transform',`translate(0 ${-30*(.5-.5*Math.cos(2*Math.PI*ph))})`);
+  roue.setAttribute('transform',`rotate(${X*4} 500 200)`);
+  const r=nouv.getBoundingClientRect();
+  const pn=clamp(-r.top/(nouv.offsetHeight-vh),0,.999),i=Math.floor(pn*slides.length);
+  slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+  pts.forEach((s,k)=>s.classList.toggle('on',k===i));
+  const c=cit.getBoundingClientRect(),q=clamp((vh*.85-c.top)/(vh*.45),0,1),n=Math.round(q*mots.length);
+  mots.forEach((m,k)=>m.classList.toggle('on',k<n));
+}
+let t=false;
+addEventListener('scroll',()=>{if(!t){t=true;requestAnimationFrame(()=>{maj();t=false})}},{passive:true});
+addEventListener('resize',maj);
+route();
+</script>
+</body>
+</html>
+</body>
+</html>
